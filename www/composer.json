@@ -1,0 +1,25 @@
+{
+	"name": "jhonatannobrega/base-php-mysql-phpmyadmin-docker",
+	"description": "Base php, mysql e phpmyadmin com docker",
+	"minimum-stability": "stable",
+	"authors": [
+		{
+			"name": "Jhonatan Nobrega",
+			"email": "jhonatan_nobrega@hotmail.com",
+			"homepage": "https://github.com/JhonatanNobrega",
+			"role": "Developer"
+		}
+	],
+	"config": {
+		"vendor-lib": "vendor"
+	},
+	"autoload": {
+		"psr-4": {
+			"Source\\": "source/"
+		}
+	},
+	"require": {
+		"phpmailer/phpmailer": "~6.0",
+		"vlucas/phpdotenv": "5.6.0"
+	}
+}

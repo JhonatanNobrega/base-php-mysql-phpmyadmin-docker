@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+
+    php:
+        build: ./docker/php/
+        container_name: php
+        restart: always
+        ports:
+            - 9000:80
+        volumes:
+            - ./www:/var/www/html
+            - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - ./docker/php/conf.d/settings.ini:/usr/local/etc/php/conf.d/settings.ini
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        networks:
+            - default
+
+    mysql:
+        image: mysql:8.0.32
+        container_name: mysql-8.0.32
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: projeto
+            MYSQL_USER: jhonatan
+            MYSQL_PASSWORD: 123
+            MYSQL_ROOT_PASSWORD: 123
+        command: mysqld --sql_mode=""
+        volumes:
+            - ./db:/var/lib/mysql
+        networks:
+            - default
+    
+    phpmyadmin:
+        image: phpmyadmin:5.2.0-apache
+        container_name: phpmyadmin-5.2.0-apache
+        restart: always
+        ports:
+            - "9080:80"
+        environment:
+            PMA_HOST: mysql-8.0.32
+            PMA_PORT: 3306
+            PMA_USER: root
+            PMA_PASSWORD: 123
+            UPLOAD_LIMIT: 64M
+        networks:
+            - default
